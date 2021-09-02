@@ -2,7 +2,6 @@ from datetime import datetime
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
-from flask import jsonify
 
 load_dotenv()
 
@@ -20,9 +19,7 @@ def get_sequence(name):
     document = collection.find_one_and_update({"id": name}, {"$inc": {"value": 1}}, return_document=True)
     return document["value"]
 
-
 class Posts():
-
 
   def __init__(self, title: str, author: str, tags, content: str):
     self.title: str = title
@@ -32,9 +29,6 @@ class Posts():
     self.id = get_sequence("posts")
     self.created_at = datetime.utcnow()
    
-
-  
-
   def save(self):
     post = db.posts.insert_one(self.__dict__)
     del self.__dict__['_id']
@@ -55,14 +49,10 @@ class Posts():
       del post['_id']
     return posts_list
 
-
   @staticmethod
   def deleting_post(id):
-  
     del_post = db.posts.find_one({"id":id})
     del del_post['_id']
-    
-
     return del_post
   
   @staticmethod
