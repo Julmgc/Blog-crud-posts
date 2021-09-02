@@ -1,5 +1,4 @@
 from app.models.posts_model import Posts
-from flask import jsonify
 
 def getting_all_posts():
   posts_list = Posts.get_all_posts()

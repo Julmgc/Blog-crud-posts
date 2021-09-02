@@ -30,10 +30,11 @@ class Posts():
     self.created_at = datetime.utcnow()
    
   def save(self):
-    post = db.posts.insert_one(self.__dict__)
+    db.posts.insert_one(self.__dict__)
     del self.__dict__['_id']
     return self.__dict__
 
+  @staticmethod
   def patching_post( id, data):
     data["updated_at"] = str(datetime.utcnow())
     update = {"$set": data}
@@ -52,6 +53,7 @@ class Posts():
   @staticmethod
   def deleting_post(id):
     del_post = db.posts.find_one({"id":id})
+    db.posts.find_one_and_delete({"id": id})
     del del_post['_id']
     return del_post
   

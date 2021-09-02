@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-from pymongo import results
 from app.controllers.post_controllers import deleting_post, getting_all_posts, adding_post, deleting_post, getting_specific_post, updating_post
 
 def init_app(app: Flask):
@@ -45,4 +44,4 @@ def init_app(app: Flask):
       patch_post = updating_post(id, data)
       return patch_post
     except TypeError:
-      return 'Post does not exist', 400
+      return 'Post does not exist', 404
