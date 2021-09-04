@@ -2,7 +2,7 @@ from app.models.posts_model import Posts
 
 def getting_all_posts():
   posts_list = Posts.get_all_posts()
-  return posts_list, 200
+  return posts_list
 
 def adding_post(data):
   post = Posts(title=data['title'], author=data['author'], tags=data['tags'], content=data['content'])

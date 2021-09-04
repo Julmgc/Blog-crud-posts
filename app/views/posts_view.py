@@ -15,7 +15,7 @@ def init_app(app: Flask):
   @app.get('/posts')
   def read_posts():
     posts_list = getting_all_posts()
-    return jsonify(posts_list), 200
+    return jsonify(posts_list)
 
   @app.delete('/posts/<int:id>')
   def delete_post(id: int):

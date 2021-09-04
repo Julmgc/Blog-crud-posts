@@ -39,9 +39,10 @@ class Posts():
     data["updated_at"] = str(datetime.utcnow())
     update = {"$set": data}
     post_to_update = db.posts.find_one({"id": id})
-    del post_to_update['_id']
     db.posts.update_one(post_to_update, update)
-    return post_to_update
+    updated_post = db.posts.find_one({"id": id})
+    del updated_post['_id']
+    return updated_post
 
   @staticmethod
   def get_all_posts():
