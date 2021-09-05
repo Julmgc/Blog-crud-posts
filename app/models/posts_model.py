@@ -37,9 +37,7 @@ class Posts():
   @staticmethod
   def patching_post( id, data):
     data["updated_at"] = str(datetime.utcnow())
-    update = {"$set": data}
-    post_to_update = db.posts.find_one({"id": id})
-    db.posts.update_one(post_to_update, update)
+    db.posts.find_one_and_update({"id": id}, {"$set": data})
     updated_post = db.posts.find_one({"id": id})
     del updated_post['_id']
     return updated_post
