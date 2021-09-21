@@ -50,6 +50,7 @@ class Posts():
     return posts_list
 
   @staticmethod
+
   def deleting_post(id):
     del_post = db.posts.find_one({"id":id})
     db.posts.find_one_and_delete({"id": id})
