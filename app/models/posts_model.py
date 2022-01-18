@@ -14,6 +14,7 @@ db.idsequences.insert_one({
     "id" : "posts",
     "value" : 0
 })
+
 def get_sequence(name):
     collection = db.idsequences
     document = collection.find_one_and_update({"id": name}, {"$inc": {"value": 1}}, return_document=True)
@@ -21,47 +22,46 @@ def get_sequence(name):
 
 class Posts():
 
-  def __init__(self, title: str, author: str, tags, content: str):
-    self.title: str = title
-    self.author: str = author
-    self.tags = tags
-    self.content: str = content
-    self.id = get_sequence("posts")
-    self.created_at = datetime.utcnow()
+    def __init__(self, title: str, author: str, tags, content: str):
+        self.title: str = title
+        self.author: str = author
+        self.tags = tags
+        self.content: str = content
+        self.id = get_sequence("posts")
+        self.created_at = datetime.utcnow()
    
-  def save(self):
-    db.posts.insert_one(self.__dict__)
-    del self.__dict__['_id']
-    return self.__dict__
+    def save(self):
+        db.posts.insert_one(self.__dict__)
+        del self.__dict__['_id']
+        return self.__dict__
 
-  @staticmethod
-  def patching_post( id, data):
-    data["updated_at"] = str(datetime.utcnow())
-    db.posts.find_one_and_update({"id": id}, {"$set": data})
-    updated_post = db.posts.find_one({"id": id})
-    del updated_post['_id']
-    return updated_post
+    @staticmethod
+    def patching_post( id, data):
+        data["updated_at"] = str(datetime.utcnow())
+        db.posts.find_one_and_update({"id": id}, {"$set": data})
+        updated_post = db.posts.find_one({"id": id})
+        del updated_post['_id']
+        return updated_post
 
-  @staticmethod
-  def get_all_posts():
-    posts_list = list(db.posts.find())
-    for post in posts_list:
-      del post['_id']
-    return posts_list
+    @staticmethod
+    def get_all_posts():
+        posts_list = list(db.posts.find())
+        for post in posts_list:
+            del post['_id']
+        return posts_list
 
-  @staticmethod
-
-  def deleting_post(id):
-    del_post = db.posts.find_one({"id":id})
-    db.posts.find_one_and_delete({"id": id})
-    del del_post['_id']
-    return del_post
+    @staticmethod
+    def deleting_post(id):
+        del_post = db.posts.find_one({"id":id})
+        db.posts.find_one_and_delete({"id": id})
+        del del_post['_id']
+        return del_post
   
-  @staticmethod
-  def getting_post(id):
-    specific_post = db.posts.find_one({"id": id})
-    del specific_post['_id']
-    return specific_post
+    @staticmethod
+    def getting_post(id):
+        specific_post = db.posts.find_one({"id": id})
+        del specific_post['_id']
+        return specific_post
 
 
 
