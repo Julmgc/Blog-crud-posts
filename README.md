@@ -1,6 +1,6 @@
 ## <font size="7">_Blog-crud-posts_</font>
 
-​​### <font color="gree"> CRUD app for movies, using MongoDB, factory pattern and MVC architecture </font> Saves a movie
+​​### <font color="gree"> API, CRUD for movies, using MongoDB, factory pattern and MVC architecture </font> Saves a movie
 
 ## <font size="6">Base URL /api </font>
 
